@@ -8,6 +8,7 @@ BEGIN {
   TIME = 2;
   URL = 5;
   STATUS = 6;
+  BYTES = 7;
   TIME_TAKEN = 8;
 }
 
@@ -16,5 +17,5 @@ BEGIN {
 
 # Success lines
 $URL ~ /^\/www-origin.production.alphagov.co.uk\/government\// {
-  print $URL, $DATE " " $TIME
+  print $URL, $DATE " " $TIME, $STATUS, $BYTES
 }
