@@ -6,7 +6,7 @@ for FILE in data/*.gz; do
     echo "${FILE} already sorted"
   else
     echo "Sorting ${FILE}"
-    gzip -dc "$FILE" | gawk -f bin/akamai_to_sql_import.awk | sort -t$'\t' -S3G -o "${SORTED}"
+    gzip -dc "$FILE" | gawk -f bin/filter_akamai_logs.awk | sort -t$'\t' -S3G -o "${SORTED}"
   fi
 done
 
