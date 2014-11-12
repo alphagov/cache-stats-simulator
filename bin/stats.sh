@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sort -m data/*sorted | gawk -f bin/run_stats.awk
+LC_ALL=C sort -m data/*sorted | gawk -f bin/run_stats.awk

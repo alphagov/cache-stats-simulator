@@ -15,26 +15,26 @@ BEGIN {
   prev_url=""
   prev_datetime=0
 
-  page_types["edition:show"] = "^/www-origin.production.alphagov.co.uk/government/(news|policies|speeches|fatalities|publications|case-studies|world-location-news|statistical-data-sets|consultations)/[^/]+(/[^/]+)*$"
-  page_types["worldwide_edition:show"] = "^/www-origin.production.alphagov.co.uk/government/(priority|world)/[^/]+(/[^/]+)*$"
-  page_types["other:show"] = "^/www-origin.production.alphagov.co.uk/government/(series|ministers|people|policy-teams|policy-advisory-groups|fields-of-operation)/[^/]+(/[^/]+)*$"
-  page_types["all orgs index"] = "^/www-origin.production.alphagov.co.uk/government/organisations$"
-  page_types["organisation:homepage"] = "^/www-origin.production.alphagov.co.uk/government/organisations/[^/]+$"
-  page_types["organisation:sub_page"] = "^/www-origin.production.alphagov.co.uk/government/organisations/[^/]+(/[^/]+)*$"
-  page_types["edition:index:locale"] = "^/www-origin.production.alphagov.co.uk/government/(policies|publications|announcements)\\.[a-z0-9]{2}(-[a-z0-9]*)(\\?.*)?$"
-  page_types["edition:index"] = "^/www-origin.production.alphagov.co.uk/government/(policies|publications|announcements)(\\.json)?(\\?.*)?$"
-  page_types["attachments"] = "^/www-origin.production.alphagov.co.uk/government/uploads"
-  page_types["atom"] = "^/www-origin.production.alphagov.co.uk/government/(feed|.*\\.atom)"
-  page_types["placeholder"] = "^/www-origin.production.alphagov.co.uk/government/placeholder"
-  page_types["atom:govdelivery"] = "^/www-origin.production.alphagov.co.uk/government/.*\\.atom.*\\?govdelivery_version=yes"
-  page_types["topics:index"] = "^/www-origin.production.alphagov.co.uk/government/topics$"
-  page_types["topics:topic-name:index"] = "^/www-origin.production.alphagov.co.uk/government/topics/[a-z-]*$"
-  page_types["topics:other"] = "^/www-origin.production.alphagov.co.uk/government/topics/[^/]+/[^/]+(/[^/]+)*$"
-  page_types["topical-events"] = "^/www-origin.production.alphagov.co.uk/government/topical-events/[^/]+(/[^/]+)*$"
-  page_types["other:index"] = "^/www-origin.production.alphagov.co.uk/government/(case-studies|policy-advisory-groups|fields-of-operation|series|ministers|people|policy-teams|policy-advisory-groups|fields-of-operation|world/organisations|world)$"
+  page_types["edition:show"] = "^/government/(news|policies|speeches|fatalities|publications|case-studies|world-location-news|statistical-data-sets|consultations)/[^/]+(/[^/]+)*$"
+  page_types["worldwide_edition:show"] = "^/government/(priority|world)/[^/]+(/[^/]+)*$"
+  page_types["other:show"] = "^/government/(series|ministers|people|policy-teams|policy-advisory-groups|fields-of-operation)/[^/]+(/[^/]+)*$"
+  page_types["all orgs index"] = "^/government/organisations$"
+  page_types["organisation:homepage"] = "^/government/organisations/[^/]+$"
+  page_types["organisation:sub_page"] = "^/government/organisations/[^/]+(/[^/]+)*$"
+  page_types["edition:index:locale"] = "^/government/(policies|publications|announcements)\\.[a-z0-9]{2}(-[a-z0-9]*)(\\?.*)?$"
+  page_types["edition:index"] = "^/government/(policies|publications|announcements)(\\.json)?(\\?.*)?$"
+  page_types["attachments"] = "^/government/uploads"
+  page_types["atom"] = "^/government/(feed|.*\\.atom)"
+  page_types["placeholder"] = "^/government/placeholder"
+  page_types["atom:govdelivery"] = "^/government/.*\\.atom.*\\?govdelivery_version=yes"
+  page_types["topics:index"] = "^/government/topics$"
+  page_types["topics:topic-name:index"] = "^/government/topics/[a-z-]*$"
+  page_types["topics:other"] = "^/government/topics/[^/]+/[^/]+(/[^/]+)*$"
+  page_types["topical-events"] = "^/government/topical-events/[^/]+(/[^/]+)*$"
+  page_types["other:index"] = "^/government/(case-studies|policy-advisory-groups|fields-of-operation|series|ministers|people|policy-teams|policy-advisory-groups|fields-of-operation|world/organisations|world)$"
 
   # Configuration of cache time buckets. Change this to change the stats breakdown.
-  split("0,0.5,1,2,5,10,15,20,30", cache_times_mins, ",")
+  split("0,0.5,1,2,5,10,15,20,30,60", cache_times_mins, ",")
   for (i in cache_times_mins) {
     cache_times_seconds[i] = cache_times_mins[i] * 60
   }
@@ -49,7 +49,7 @@ function find_page_type(url, status_code)
       return page_type
     }
   }
-  return "unknown"
+  return "other"
 }
 
 function record_cache_time(url, page_type, time_since_last_request, status, bytes)

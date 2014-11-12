@@ -16,6 +16,6 @@ BEGIN {
 /^#/ { next }
 
 # Success lines
-$URL ~ /^\/www-origin.production.alphagov.co.uk\/government\// {
+$URL ~ /^\/www-origin.production.alphagov.co.uk\// {
   print $URL, $DATE " " $TIME, $STATUS, $BYTES
 }
